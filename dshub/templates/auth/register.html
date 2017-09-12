@@ -1,0 +1,48 @@
+{% extends "auth/base.html" %}
+
+{% block style %}
+    <style>
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    {% import "bootstrap/wtf.html" as wtf %}
+
+    <div class="container">
+        <div class="'row">
+            <div class="col-md-6 col-md-offset-3">
+                <h3>Register</h3>
+                <form class="form-horizontal" method="post" role="form">
+                    {{ form.hidden_tag() }}
+                    {{ wtf.form_errors(form, hiddens="only") }}
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Email</span>
+                        {{ form.email(**{'placeholder': 'Email',
+                        'class': 'form-control', 'aria-describedby': 'basic-addon1'}) }}
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Username</span>
+                        {{ form.username(**{'placeholder': 'username',
+                        'class': 'form-control', 'aria-describedby': 'basic-addon1'}) }}
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Password</span>
+                        {{ form.password(**{'placeholder': 'password',
+                        'class': 'form-control', 'aria-describedby': 'basic-addon1'}) }}
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Confirm</span>
+                        {{ form.confirm_password(**{'placeholder': 'password',
+                        'class': 'form-control', 'aria-describedby': 'basic-addon1'}) }}
+                    </div>
+                    {{ wtf.form_field(form.submit, class='btn btn-success') }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

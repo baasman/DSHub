@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% import "bootstrap/wtf.html" as wtf %}
+
+    <div class="container">
+        <div class="'row">
+            <div class="col-md-6 col-md-offset-3">
+                <h3>Create a new project</h3>
+                <form class="form-horizontal" method="post" role="form">
+                    {{ form.hidden_tag() }}
+                    {{ wtf.form_errors(form, hiddens="only") }}
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Project Name</span>
+                        {{ form.project_name(**{'placeholder': 'Project Name',
+                        'class': 'form-control', 'aria-describedby': 'basic-addon1'}) }}
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Data Folder</span>
+                        {{ form.data_folder(**{'placeholder': 'Data Source',
+                        'class': 'form-control', 'aria-describedby': 'basic-addon1'}) }}
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">Project Folder</span>
+                        {{ form.project_folder(**{'placeholder': 'Project Folder',
+                        'class': 'form-control', 'aria-describedby': 'basic-addon1'}) }}
+                    </div>
+                    {{ wtf.form_field(form.submit, class='btn btn-success') }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

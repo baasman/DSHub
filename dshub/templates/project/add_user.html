@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% import "bootstrap/wtf.html" as wtf %}
+    <h1>{{ project.project_name }}</h1>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="project-setting">
+                <h3>Add a user</h3>
+                <form class="form-horizontal" method="post" role="form">
+                    {{ form.hidden_tag() }}
+                    {{ wtf.form_errors(form, hiddens="only") }}
+                    {{ wtf.form_field(form.username) }}
+                    {{ wtf.form_field(form.permission) }}
+                    {{ wtf.form_field(form.admin) }}
+                    {{ wtf.form_field(form.submit, class='btn btn-success') }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
