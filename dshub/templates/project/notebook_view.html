@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <iframe src="{{ url_for('static', filename='notebooks/%s' % notebook) }}"
+                    height="800" width="600" frameborder="0"></iframe>
+        </div>
+    </div>
+{% endblock %}

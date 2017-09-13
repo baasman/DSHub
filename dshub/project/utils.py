@@ -16,3 +16,21 @@ def scaffold_project_folder(project_path, data_path, username):
 
     os.mkdir(os.path.join(project_path, 'workspace', username))
     os.mkdir(os.path.join(project_path, 'workspace', 'shared'))
+    os.mkdir(os.path.join(project_path, 'workspace', '.dshub-meta'))
+
+
+
+def get_models(root_path):
+    model_dir = os.listdir(os.path.join(root_path, 'models'))
+
+def get_notebooks(root_path):
+    files = []
+    workspace = os.listdir(root_path)
+    for file in workspace:
+        if os.path.splitext(file)[1] == '.ipynb':
+            files.append(file)
+    return files
+
+
+def init_git():
+    pass

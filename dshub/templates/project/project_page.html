@@ -3,11 +3,32 @@
 {% block content %}
     <h1>{{ project.project_name }}</h1>
     <div class="row">
-        <div class="project-setting">
-            <h3>Settings</h3>
+        <div class="col-md-4">
+            <h3>Models</h3>
+        </div>
+        <div class="col-md-4">
+            <h3>Validation</h3>
+        </div>
+        <div class="col-md-4">
+            <h3>Workspace</h3>
             <ul>
-                <li><a href="{{ url_for('user.add_user', project_name=project.project_name) }}">Add User</a></li>
+                {% for pynb in notebooks['ws'] %}
+                    <li><a href="{{ url_for('project.view_notebook', project_name=project.project_name,
+                            nb_name=pynb) }}">{{ pynb }}</a></li>
+
+                {% endfor %}
             </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="project-setting">
+                <h3>Settings</h3>
+                <ul>
+                    <li><a href="{{ url_for('user.add_user', project_name=project.project_name) }}">Add User</a></li>
+                    <li><a href="#">Setup Git</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 {% endblock %}
