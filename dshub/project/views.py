@@ -27,14 +27,18 @@ def project_page(project_name):
 def view_notebook(project_name, nb_name):
     project = Project.objects(project_name=project_name).first()
 
-    ipy_file = os.path.join(project.project_folder, 'workspace', nb_name)
+    folder_name = request.args.get('folder_name')
+    if folder_name == 'root':
+        ipy_file = os.path.join(project.project_folder, 'workspace', nb_name)
+    else:
+        ipy_file = os.path.join(project.project_folder, 'workspace', folder_name, nb_name)
 
     nb_to_file = os.path.join(current_app.static_folder, 'notebooks', nb_name).replace('.ipynb', '.html')
     if not os.path.exists(nb_to_file):
         c = subprocess.check_call('jupyter nbconvert --to html --template full %s' % ipy_file,
                                   shell=True)
         if c == 0:
-            shutil.copyfile(ipy_file.replace('.ipynb', '.html'), nb_to_file)
+            shutil.move(ipy_file.replace('.ipynb', '.html'), nb_to_file)
         else:
             raise Exception
     html_file = ntpath.basename(nb_to_file)
