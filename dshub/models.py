@@ -50,6 +50,10 @@ class ProjectUser(db.EmbeddedDocument):
     admin = db.BooleanField(default=False)
     permission_level = db.IntField()
 
+class ProjectJupyter(db.EmbeddedDocument):
+    jupyter_url = db.StringField()
+    project_path_extension = db.StringField()
+
 
 class Project(db.Document):
 
@@ -60,8 +64,11 @@ class Project(db.Document):
     models = db.ListField(db.IntField())
 
     users = db.ListField(db.EmbeddedDocumentField(ProjectUser))
-    github_remote = db.StringField()
     local_git = db.ListField(db.StringField())
+
+    python_venv = db.StringField()
+    jupyter_notebook = db.EmbeddedDocumentField(ProjectJupyter)
+
 
     date_created = db.DateTimeField(default=datetime.datetime.now())
 

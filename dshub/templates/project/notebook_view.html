@@ -1,10 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row">
+    <div class="row" xmlns="http://www.w3.org/1999/html">
         <div class="col-md-12">
             <iframe src="{{ url_for('static', filename='notebooks/%s' % notebook) }}"
                     height="800" width="600" frameborder="0"></iframe>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="jupyter-tools">
+                {% if commits|length == 0 %}
+                    <li>This notebook has no previous commits</li>
+                {% else %}
+                    <a class="btn btn-default" href="{{ jupyter }}" target="_blank">Open in jupyter</a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Git Diff  <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a>Current working tree</a></li>
+                            {% for commit in commits %}
+                                <li><a href="{{ url_for('project.notebook_diff',
+                                rel_file=commit['rel_file'], project_folder=commit['project_folder']) }}">
+                                    {{ commit['message'] }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}
